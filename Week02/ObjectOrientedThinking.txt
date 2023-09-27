@@ -1,0 +1,176 @@
+Objectives:
+    * To apply class abstraction to develop software (§10.2).
+    * To explore the differences between the procedural paradigm and object-oriented paradigm (§10.3).
+    * To discover the relationships between classes (§10.4).
+    * To use the String class to process immutable strings (§10.10).
+    * To use the StringBuilder and StringBuffer classes to process mutable strings (§10.11).
+
+----------------------------------------------------------
+1. Introduction
+
+The focus of this chapter is on class design and explores the differences between procedural programming and object-oriented programming.
+
+----------------------------------------------------------
+2. Class Abstraction and Encapsulation
+
+Class abstraction is the separation of class implementation from the use of a class.
+
+The details of implementation are encapsulated and hidden from the user. This is known as class encapsulation.
+
+The creator of a class describes the functions of the class and lets the user know how the class can be used.
+
+The details of implementation are encapsulated
+and hidden from the user. This is called class encapsulation.
+
+For example, you can create a Circle object and find the area of the circle without knowing how the area is computed. For this reason, a class is also known as an abstract data type (ADT).
+
+You don’t need to know how the components work
+internally. The internal implementation is encapsulated and hidden from you.
+
+The traditional procedural programming paradigm is action-driven, and data are separated from actions. The object-oriented programming paradigm focuses on objects, and actions are defined along with the data in objects.
+
+Remember that a class user can use the class without knowing how the class is implemented. A class should provide a variety of ways for customization through constructors, properties, and methods.
+
+All the data properties and methods in this class are tied to a specific instance of the Loan class. Therefore, they are instance variables and methods.
+
+    If you redefine the Loan class in Listing 10.2 without setter methods, is the class immutable? -No
+
+Encapsulation:
+    Encapsulation is defined as the wrapping up of data under a single unit. It is the mechanism that binds together code and the data it manipulates. Another way to think about encapsulation is, it is a protective shield that prevents the data from being accessed by the code outside this shield.
+
+    Technically in encapsulation, the variables or data of a class is hidden from any other class and can be accessed only through any member function of own class in which they are declared. As in encapsulation, the data in a class is hidden from other classes, so it is also known as data-hiding.
+
+    Encapsulation can be achieved by Declaring all the variables in the class as private and writing public methods in the class to set and get the values of variables.
+
+Abstraction:
+    Data Abstraction is the property by virtue of which only the essential details are displayed to the user. The trivial or the non-essentials units are not displayed to the user. Ex: A car is viewed as a car rather than its individual components.
+
+    Data Abstraction may also be defined as the process of identifying only the required characteristics of an object ignoring the irrelevant details. The properties and behaviours of an object differentiate it from other objects of similar type and also help in classifying/grouping the objects.
+
+Abstraction is the method of hiding the unwanted information.
+
+Whereas encapsulation is a method to hide the data in a single entity or unit along with a method to protect information from outside.
+
+We can implement abstraction using abstract class and interfaces.
+
+Whereas encapsulation can be implemented using by access modifier i.e. private, protected and public.
+
+----------------------------------------------------------
+3. Thinking in Objects
+
+The procedural paradigm focuses on designing methods. The object-oriented paradigm couples data and methods together into objects. Software design using the object-oriented paradigm focuses on objects and operations on objects.
+
+Classes provide more flexibility and modularity for building reusable software.
+
+Using objects improves software reusability and makes programs easier to develop and easier to maintain.
+
+----------------------------------------------------------
+4. Class Relationships
+
+To design classes, you need to explore the relationships among classes. The common relationships among classes are association, aggregation, composition, and inheritance.
+
+4.1. Association
+    Association is a general binary relationship that describes an activity between two classes. For example, a student taking a course is an association between the Student class and the Course class
+
+    you can implement associations by using data fields and methods with associated class types.
+
+4.2. Aggregation and Composition:
+    Aggregation is a special form of association that represents an ownership relationship between two objects. Aggregation models has-a relationships.
+
+    If an object is exclusively owned by an aggregating object, the relationship between the object and its aggregating object is referred to as a composition.
+
+    Aggregation may exist between objects of the same class.
+
+----------------------------------------------------------------
+7. Processing Primitive Data Type Values as Objects
+
+A primitive type value is not an object, but it can be wrapped in an object using a wrapper class in the Java API.
+
+The wrapper classes do not have no-arg constructors. The instances of all wrapper classes
+are immutable; this means that, once the objects are created, their internal values cannot be changed.
+
+The numeric wrapper classes have a useful static method, valueOf (String s) . This method creates a new object initialized to the value represented by the specified string.
+
+----------------------------------------------------------------
+8. Automatic Conversion Between Primitive Types and Wrapper Class Types
+
+Converting a primitive value to a wrapper object is called boxing. The reverse conversion is called unboxing.
+
+----------------------------------------------------------------
+9. The BigInteger and BigDecimal Classes
+
+The BigInteger and BigDecimal classes can be used to represent integers or decimal numbers of any size and precision.
+
+If you need to compute with very large integers or high-precision floating-point values, you can use the BigInteger and BigDecimal classes in the java.math package. Both are immutable.
+
+You can use new BigInteger(String) and new BigDecimal(String) to create an instance of BigInteger and BigDecimal , use the add , subtract , multiply , divide , and remainder methods to perform arithmetic operations, and use the compareTo method to compare two big numbers.
+
+----------------------------------------------------------
+10. The String Class
+
+A String object is immutable: Its content cannot be changed once the string is created.
+
+10.1. Constructing a String
+    You can create a string object from a string literal or from an array of characters.
+
+10.2. Immutable Strings and Interned Strings
+    A String object is immutable; its contents cannot be changed. Does the following code change the contents of the string?
+
+        String s = "Java";
+        s = "HTML";
+    
+    The answer is no. The first statement creates a String object with the content "Java" and assigns its reference to s . The second statement creates a new String object with the content "HTML" and assigns its reference to s . The first String object still exists after the assignment, but it can no longer be accessed, because variable s now points to the new object
+
+10.3. Replacing and Splitting Strings
+    Once a string is created, its contents cannot be changed. The methods replace , replaceFirst , and replaceAll return a new string derived from the original string (without changing the original string!).
+
+    The split method can be used to extract tokens from a string with the specified delimiters.
+
+10.4. Matching, Replacing and Splitting by Patterns
+    Often you will need to write code that validates user input, A simple and effective way to accomplish this task is to use the regular expression.
+
+    A regular expression (abbreviated regex) is a string that describes a pattern for matching a set of strings. You can match, replace, or split a string by specifying a pattern. This is an extremely useful and powerful feature.
+
+    matches method is a powerful regex method
+    replaceAll replaces accordingto regex
+    split can also split with regex
+
+10.5. Conversion Between Strings and Arrays
+    Strings are not arrays, but a string can be converted into an array, and vice versa. To convert a string into an array of characters, use the toCharArray method.
+
+    To convert an array of characters into a string, use the String(char[]) constructor or the valueOf(char[]) method.
+
+10.6. Converting Characters and Numeric Values to Strings
+
+    number into a string is to use the overloaded static valueOf method. This method can also be used to convert a character or an array of characters into a string.
+
+10.7. Formatting Strings
+    The String class contains the static format method to return a formatted string.
+
+----------------------------------------------------------------
+11. The StringBuilder and StringBuffer Classes
+
+In general, the StringBuilder and StringBuffer classes can be used wherever a string is used. StringBuilder and StringBuffer are more flexible than String . You can add, insert, or append new contents into StringBuilder and StringBuffer objects, whereas the value of a String object is fixed once the string is created.
+
+The capacity() method returns the current capacity of the string builder. The capacity is the number of characters the string builder is able to store without having to increase its size.
+
+The length() method returns the number of characters actually stored in the string builder.
+
+The charAt(index) method returns the character at a specific index in the string builder.
+
+----------------------------------------------------------------
+Summary:
+
+The procedural paradigm focuses on designing methods. The object-oriented paradigm couples data and methods together into objects. Software design using the object-oriented paradigm focuses on objects and operations on objects.
+
+wrap, a primitive data type into an object
+
+automatically convert a primitive type value to its corresponding wrapper object in the context and vice versa.
+
+The BigInteger class is useful for computing and processing integers of any size. The BigDecimal class can be used to compute and process floating-point numbers with any arbitrary precision.
+
+A String object is immutable; its contents cannot be changed. To improve efficiency and save memory, the JVM stores two literal strings that have the same character sequence in a unique object. This unique object is called an interned string object.
+
+A regular expression (abbreviated regex) is a string that describes a pattern for matching a set of strings. You can match, replace, or split a string by specifying a pattern.
+
+The StringBuilder and StringBuffer classes can be used to replace the String class. The String object is immutable, but you can add, insert, or append new contents into StringBuilder and StringBuffer objects. Use String if the string contents do not require any change, and use StringBuilder or StringBuffer if they might change.

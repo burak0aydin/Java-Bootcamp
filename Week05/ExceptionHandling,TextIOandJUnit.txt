@@ -1,0 +1,317 @@
+I write these notes using VSCode. If you are using VSCode, you can open this txt file in VSCode and then if you press Alt+z it will automatically fit the text to screen. Otherwise, you will see the text in one line and it could be hard to read. Please don't just rely on these notes that i am sharing and read the corresponding chapters from the text book.
+
+Objectives:
+    * To explore the advantages of using exception handling (§12.2).
+    * To distinguish exception types: Error (fatal) vs. Exception (nonfatal) and checked vs. unchecked (§12.3).
+    * To declare exceptions in a method header (§12.4.1).
+    * To throw exceptions in a method (§12.4.2).
+    * To write a try-catch block to handle exceptions (§12.4.3).
+    * To explain how an exception is propagated (§12.4.3).
+    * To obtain information from an exception object (§12.4.4).
+    * To use the finally clause in a try-catch block (§12.5).
+    * To rethrow exceptions in a catch block (§12.7).
+    * To create chained exceptions (§12.8).
+    * To define custom exception classes (§12.9).
+    * To discover file/directory properties, to delete and rename files/directories, and to create directories using the File class (§12.10).
+    * To write data to a file using the PrintWriter class (§12.11.1).
+
+-----------------------------------------------------------------------
+1. Introduction
+
+Exception handling enables a program to deal with exceptional situations and
+continue its normal execution.
+
+Runtime errors occur while a program is running if the JVM detects an operation that is impossible to carry out.
+
+In Java, runtime errors are thrown as exceptions.
+
+An exception is an object that represents an error or a condition that prevents execution from proceeding normally.
+
+If the exception is not handled, the program will terminate abnormally.
+
+-----------------------------------------------------------------------
+2. Exception-Handling
+
+Exceptions are thrown from a method. The caller of the method can catch and handle the exception.
+
+Simple way to fix a runtime error is to add an if statement to test the conditions.
+
+The execution of a throw statement is called throwing an exception.
+
+The exception is an object created from an exception class. These classes have their own constructors and usually these constructors take a String message that described the exception.
+
+The try block contains the code that is executed in normal circumstances. The exceptions are caught by the catch block. The code in the catch block is executed to handle the exception.
+
+The throw statement is analogous to a method call, but instead of calling a method, it calls a catch block. In this sense, a catch block is like a method definition with a parameter that matches the type of the value being thrown.
+
+Unlike a method, however, after the catch block is executed, the program control does not return to the throw statement; instead, it executes the next statement after the catch block.
+
+The type preceding the exception parameter specifies what kind of exception the catch block can catch. Once the exception is caught, you can access the thrown value from this parameter in the body of a catch block.
+
+Exception handling enables a method to throw an exception to its caller, enabling the caller to handle the exception. Without this capability, the called method itself must handle the exception or terminate the program.
+
+The key benefit of exception handling is separating the detection of an error (done in a called method) from the handling of an error (done in the calling method).
+
+What is the advantage of using exception handling?
+What does the JVM do when an exception occurs? How do you catch an exception?
+
+---------------------------------------------------------------------------
+3. Exception Types
+
+Exceptions are objects, and objects are defined using classes. The root class for exceptions is java.lang.Throwable.
+
+You can create your own exception classes by extending Exception or a subclass of Exception.
+
+The exception classes can be classified into three major types: system errors, exceptions, and runtime exceptions.
+    - System errors are thrown by the JVM and are represented in the Error class. The Error class describes internal system errors, though such errors rarely occur.
+
+    - Exceptions are represented in the Exception class, which describes errors caused by your program and by external circumstances. These errors can be caught and handled by your program.
+
+    - Runtime exceptions are represented in the RuntimeException class, which describes programming errors, such as bad casting, accessing an out-of-bounds array, and numeric errors.
+
+RuntimeException , Error , and their subclasses are known as unchecked exceptions. All other exceptions are known as checked exceptions, meaning that the compiler forces the programmer to check and deal with them in a try-catch block or declare it in the method header. In most cases, unchecked exceptions reflect programming logic errors that are unrecoverable.
+
+------------------------------------------------------------------------------
+4. More on Exception Handling
+
+A handler for an exception is found by propagating the exception backward through a chain of method calls, starting from the current method.
+
+Java’s exception-handling model is based on three operations:
+    * Declaring an exception
+    * Throwing an exception
+    * Catching an exception
+
+4.1. Declaring Exceptions
+Every method must state the types of checked exceptions it might throw. This is known as declaring exceptions.
+
+Java does not require that you declare Error and RuntimeException (unchecked exceptions) explicitly in the method. However, all other exceptions thrown by the method must be explicitly declared in the method header so that the caller of the method is informed of the exception.
+
+To declare an exception in a method, use the throws keyword in the method header. Example:
+    public void myMethod() throws IOException
+
+The throws keyword indicates that myMethod might throw an IOException.
+
+4.2. Throwing Exceptions
+A program that detects an error can create an instance of an appropriate exception type and throw it. This is known as throwing an exception. Exanple:
+    throw new IllegalArgumentException("Wrong Argument");
+
+The keyword to declare an exception is 'throws', and the keyword to throw an exception is 'throw'.
+
+4.3. Catching Exceptions
+When an exception is thrown, it can be caught and handled in a try-catch block
+
+If no exceptions arise during the execution of the try block, the catch blocks are skipped.
+
+If one of the statements inside the try block throws an exception, Java skips the remaining statements in the try block and starts the process of finding the code to handle the exception.
+
+The code that handles the exception is called the exception handler
+
+Each catch block is examined in turn, from first to last, to see whether the type of the exception object is an instance of the exception class in the catch block. If so, the exception object is assigned to the variable declared, and the code in the catch block is executed. If so, the exception object is assigned to the variable declared, and the code in the catch block is executed. If no handler is found in the chain of methods being invoked, the program terminates and prints an error message on the console.
+
+The process of finding a handler is called catching an exception.
+
+If an exception is not caught in the current method, it is passed to its caller. The process is repeated until the exception is caught or passed to the main method.
+
+What is the purpose of declaring exceptions? How do you declare an exception, and where?
+How do you throw an exception?
+What is the keyword throw used for? What is the keyword throws used for?
+
+------------------------------------------------------------------------------
+5. The Finally Clause
+
+The finally clause is always executed regardless whether an exception occurred or not.
+
+Occasionally, you may want some code to be executed regardless of whether an exception occurs or is caught. Java has a finally clause that can be used to accomplish this objective.
+
+The finally block executes even if there is a return statement prior to reaching the finally block.
+
+------------------------------------------------------------------------------
+6. When to Use Exceptions
+
+A method should throw an exception if the error needs to be handled by its caller.
+
+Exception handling separates error-handling code from normal programming tasks, thus making programs easier to read and to modify.
+
+If you want the exception to be processed by its caller, you should create an exception object and throw it. If you can handle the exception in the method where it occurs, there is no need to throw or use exceptions.
+
+When should you use a try-catch block in the code? Use it when you have to deal with unexpected error conditions. Do not use a try-catch block to deal with simple, expected situations.
+
+---------------------------------------------------------------------------
+7. Rethrowing Exceptions
+
+Java allows an exception handler to rethrow the exception if the handler cannot process the exception or simply wants to let its caller be notified of the exception.
+
+Rethrowing exceptions gives other handlers in the caller get a chance to process the exception.
+
+------------------------------------------------------------------------------
+8. Chained Exceptions
+
+Throwing an exception along with another exception forms a chained exception.
+
+Sometimes, you may need to throw a new exception (with additional information) along with the original exception. This is called chained exceptions.
+
+------------------------------------------------------------------------------
+9. Defining Custom Exception Classes
+
+You can define a custom exception class by extending the java.lang.Exception class or any of its subclasses.
+
+if you run into a problem that cannot be adequately described by the predefined exception classes, you can create your own exception class, derived from Exception or from a subclass of Exception
+
+The Exception class extends java.lang.Throwable . All the methods (e.g., getMessage(), toString(), and printStackTrace()) in Exception are inherited from Throwable.
+
+How do you define a custom exception class?
+
+------------------------------------------------------------------------------
+10. The File Class
+
+The File class contains the methods for obtaining the properties of a file/directory and for renaming and deleting a file/directory.
+
+To permanently store the data created in a program, you need to save them in a file on a disk or other permanent storage device.
+
+Every file is placed in a directory in the file system.
+
+An absolute file name (or full name) contains a file name with its complete path
+    /home/ercx/Dersler/CSE102/Welcome.java
+
+A relative file name is in relation to the current working directory. The complete directory path for a relative file name is omitted.
+    ./Welcome.java
+
+The File class contains the methods for obtaining file and directory properties and for renaming and deleting files and directories however, the File class does not contain the methods for reading and writing file contents
+
+You can use the File class’s isDirectory() method to check whether the object represents a directory, and the isFile() method to check whether the object represents a file.
+
+Do not use absolute file names in your program. You should use a file name relative to the current directory.
+
+The forward slash ( / ) is the Java directory separator, which is the same as on UNIX.
+
+The lastModified() method returns the date and time when the file was last modified
+
+How do you check whether a file already exists?
+How do you delete a file? How do you rename a file?
+Can you find the file size (the number of bytes) using the File class?
+How do you create a directory?
+
+----------------------------------------------------------------------------
+11. File Input and Output
+
+Use the Scanner class for reading text data from a file and the PrintWriter class for writing text data to a file.
+
+A File object encapsulates the properties of a file or a path, but it does not contain the methods for creating a file or for writing/reading data to/from a file (referred to as data input and output, or I/O for short).
+
+In order to perform I/O, you need to create objects using appropriate Java I/O classes. The objects contain the methods for reading/writing data from/to a file.
+
+11.1. Writing Data Using PrintWriter
+
+The java.io.PrintWriter class can be used to create a file and write data to a text file.
+
+You can invoke the print , println , and printf methods on the PrintWriter object to write data to a file.
+
+Invoking the constructor of PrintWriter will create a new file if the file does not exist. If the file already exists, the current content in the file will be discarded without verifying with the user.
+
+The close() method must be used to close the file. If this method is not invoked, the data may not be saved properly in the file.
+
+11.2. Closing Resources Automatically Using try-with-resources
+
+try-with-resources syntax that automatically closes the files
+
+A resource is declared and created followed by the keyword try .
+
+The resources must be a subtype of AutoCloseable such as a PrinterWriter that has the close() method.
+
+The resource’s close() method is automatically invoked to close the resource after the execution of the try block. It makes code simpler and easier to read.
+
+11.3. Reading Data Using Scanner
+
+A Scanner breaks its input into tokens delimited by whitespace characters. To read from the keyboard, you create a Scanner for System.in , as follows:
+    Scanner input = new Scanner(System.in);
+
+To read from a file, create a Scanner for a file, as follows:
+    Scanner input = new Scanner(new File(filename));
+
+To create a Scanner to read data from a file, you have to use the java.io.File class to create an instance of the File using the constructor new File(filename), and use new Scanner(File) to create a Scanner for the file
+
+11.4. How Does Scanner Work?
+
+Some methods of Scanner class are known as token-erading methods, because they read tokens separated by delimiters. By default, the delimiters are whitespace characters.
+
+You can use the useDelimeter(String regex) method to set a new pattern for delimeters.
+
+Both methods next() and nextLine() read a string. The next() method reads a string delimited by delimiters, and nextLine() reads a line ending with a line separator. Other methods such as nextInt and nextDouble, reads tokens and automatically converts their types to corresponding types.
+
+What happens if the input is entered from the keyboard? Suppose you enter 34 , press the Enter key, then enter 567 and press the Enter key for the following code:
+    Scanner input = new Scanner(System.in);
+    int intValue = input.nextInt();
+    String line = input.nextLine();
+
+You will get 34 in intValue and an empty string in line . Why? Here is the reason. The token-reading method nextInt() reads in 34 and stops at the delimiter, which in this case is a line separator (the Enter key). The nextLine() method ends after reading the line separator and returns the string read before the line separator. Since there are no characters before the line separator, line is empty.
+
+-------------------------------------------------------------
+12. Reading Data from the Web
+
+Just like you can read data from a file on your computer, you can read data from a file on the Web.
+
+For an application program to read data from a URL, you first need to create a URL object using the java.net.URL class with this constructor:
+    public URL(String spec) throws MalformedURLException
+
+A MalformedURLException is thrown if the URL string has a syntax error. Note that the 'http://' prefix is required for the URL class to recognize a valid URL.
+
+After a URL object is created, you can use the openStream() method defined in the URL class to open an input stream and use this stream to create a Scanner object as follows:
+    Scanner input = new Scanner(url.openStream());
+
+Now you can read the data from the input stream just like from a local file.
+
+-------------------------------------------------------------------------
+13. Testing Using JUnit
+
+JUnit is a tool for testing Java programs.
+
+To test a class, you need to write a test class and run it through JUnit to generate a report for the class.
+
+JUnit is the de facto framework for testing Java programs. JUnit is a third-party open-source library packed in a jar file.
+
+The jar file contains a tool called test runner, which is used to run test programs.
+
+Suppose you have a class named 'A'. To test this class, you write a test class named 'ATest'. This class is called a 'test class', contains the methods you write for testing class 'A'. The test runner executes 'ATest' to generate a test report.
+
+By convention, if the class to be tested is named 'A' , the test class should be named 'ATest'.
+
+You can define any number of test methods.
+
+Some seful methods of JUnit:
+    assertTrue(booleanExpression): The method reports success if the booleanExpression evaluates true.
+
+    assertEquals(Object, Object): The method reports success if the two objects are the same using the equals method.
+
+    assertNull(Object): The method reports success if the object reference passed is null.
+
+    fail(String): The method causes the test to fail and prints out the string.
+
+To test a Java class, you create a test class for the class to be tested and use JUnit’s test runner to execute the test class to generate a test report.
+
+
+---------------------------------------------------------------------------
+Summary
+
+Exception handling enables a method to throw an exception to its caller.
+
+Java provides a number of predefined exception classes, such as Error , Exception, RuntimeException...
+
+Exceptions occur during the execution of a method. RuntimeException and Error are unchecked exceptions; all other exceptions are checked.
+
+When declaring a method, you have to declare a checked exception if the method might throw it, thus telling the compiler what can go wrong.
+
+The keyword for declaring an exception is throws , and the keyword for throwing an exception is throw.
+
+To invoke the method that declares checked exceptions, enclose it in a try statement. When an exception occurs during the execution of the method, the catch block catches and handles the exception.
+
+Various exception classes can be derived from a common superclass. If a catch block catches the exception objects of a superclass, it can also catch all the exception objects of the subclasses of that superclass.
+
+The order in which exceptions are specified in a catch block is important. A compile error will result if you specify an exception object of a class after an exception object of the superclass of that class.
+
+The code in the finally block is executed under all circumstances, regardless of whether an exception occurs in the try block or not.
+
+Exception handling separates error-handling code from normal programming tasks, thus making programs easier to read and to modify.
+
+Exception handling should not be used to replace simple tests. You should perform simple test using if statements whenever possible, and reserve exception handling for dealing with situations that cannot be handled with if statements.
+
+The File class is used to obtain file properties and manipulate files. It does not contain the methods for creating a file or for reading/writing data from/to a file. You should use PrintWriter and Scanner classes for such operations.

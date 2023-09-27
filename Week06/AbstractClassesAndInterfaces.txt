@@ -1,0 +1,197 @@
+I write these notes using VSCode. If you are using VSCode, you can open this txt file in VSCode and then if you press Alt+z it will automatically fit the text to screen. Otherwise, you will see the text in one line and it could be hard to read. Please don't just rely on these notes that i am sharing and read the corresponding chapters from the text book.
+
+Objectives:
+    * To design and use abstract classes (§13.2).
+    * To specify common behavior for objects using interfaces (§13.5).
+    * To define interfaces and define classes that implement interfaces (§13.5).
+    * To explore the similarities and differences among concrete classes, abstract classes, and interfaces (§13.8).
+    * To design classes that follow the class-design guidelines (§13.10).
+
+--------------------------------------------------------------------------
+1. Introduction
+
+A superclass defines common behavior for related subclasses. An interface can be used to define common behavior for classes (including unrelated classes).
+
+An interface is for defining common behavior for classes (including unrelated classes).
+
+---------------------------------------------------------------------------
+2. Abstract Classes
+
+An abstract class cannot be used to create objects. An abstract class can contain abstract methods, which are implemented in concrete subclasses.
+
+In the inheritance hierarchy, classes become more specific and concrete with each new subclass.
+
+If you move from a subclass back up to a superclass, the classes become more general and less specific. Class design should ensure that a superclass contains common features of its subclasses.
+
+Sometimes a superclass is so abstract that it cannot be used to create any specific instances. Such a class is referred to as an abstract class.
+
+Abstract classes are like regular classes, but you cannot create instances of abstract classes using the new operator.
+
+An abstract method is defined without implementation. Its implementation is provided by the subclasses.
+
+The constructor in the abstract class is defined as protected, because it is used only by subclasses.
+
+An abstract method cannot be contained in a nonabstract class. If a subclass of an abstract superclass does not implement all the abstract methods, the subclass must be defined as abstract. In other words, in a nonabstract subclass extended from an abstract class, all the abstract methods must be implemented. Also note that abstract methods are nonstatic.
+
+An abstract class cannot be instantiated using the new operator, but you can still define its constructors, which are invoked in the constructors of its subclasses.
+
+A class that contains abstract methods must be abstract. However, it is possible to define an abstract class that doesn’t contain any abstract methods. In this case, you cannot create instances of the class using the new operator. This class is used as a base class for defining subclasses.
+
+A subclass can be abstract even if its superclass is concrete.
+
+You cannot create an instance from an abstract class using the new operator, but an abstract class can be used as a data type.
+
+-------------------------------------------------------------------------------
+5. Interfaces
+
+An interface is a class-like construct that contains only constants and abstract methods.
+
+Its intent is to specify common behavior for objects of related classes or unrelated classes.
+
+An interface is treated like a special class in Java. Each interface is compiled into a separate bytecode file, just like a regular class. You can use an interface more or less the same way you use an abstract class.
+
+You can use the Edible interface to specify whether an object is edible. This is accomplished by letting the class for the object implement this interface using the 'implements' keyword.
+
+When a class implements an interface, it implements all the methods defined in the interface with the exact signature and return type.
+
+Since all data fields are public static final and all methods are public abstract in an interface, Java allows these modifiers to be omitted
+
+-----------------------------------------------------------------------------
+6. The Comparable Interface
+
+The Comparable interface defines the compareTo method for comparing objects.
+
+Suppose you want to design a generic method to find the larger of two objects of the same type. In order to accomplish this, the two objects must be comparable, so the common behavior for the objects must be comparable. Java provides the Comparable interface for this purpose.
+
+Since all Comparable objects have the compareTo method, the java.util.Arrays .sort(Object[]) method in the Java API uses the compareTo method to compare and sorts the objects in an array, provided that the objects are instances of the Comparable interface.
+
+--------------------------------------------------------------------------------
+7. The Cloneable Interface
+
+The Cloneable interface specifies that an object can be cloned.
+
+Often it is desirable to create a copy of an object. To do this, you need to use the clone method and understand the Cloneable interface.
+
+An interface contains constants and abstract methods, but the Cloneable interface is a special case. This interface is empty.
+
+An interface with an empty body is referred to as a marker interface. 
+
+A marker interface does not contain constants or methods. It is used to denote that a class possesses certain desirable properties. A class that implements the Cloneable interface is marked cloneable, and its objects can be cloned using the clone() method defined in the Object class.
+
+To define a custom class that implements the Cloneable interface, the class must override the clone() method in the Object class. Cloned objects have the same contents but point to differnet memory address, so they are different.
+
+The clone method in the Object class copies each field from the original object to the target object. If the field is of a primitive type, its value is copied.
+
+If the field is of an object, the reference of the field is copied. If the object reference is copied it means deep copy, meaning fields objects are the same, but if the field is a primitive type, the contents of it is copied, but their reference is actually different, this is shallow copy
+
+-----------------------------------------------------------------------------
+8. Interfaces vs Abstract Classes
+
+A class can implement multiple interfaces, but it can only extend one superclass.
+
+An interface can inherit other interfaces using the extends keyword.
+
+Such an interface is called a subinterface.
+
+An interface can extend other interfaces but not classes.
+
+A class can extend its superclass and implement multiple interfaces.
+
+Like a class, an interface also defines a type. A variable of an interface type can reference any instance of the class that implements the interface. If a class implements an interface, the interface is like a superclass for the class.
+
+You can use an interface as a data type and cast a variable of an interface type to its subclass, and vice versa.
+
+Abstract classes and interfaces can both be used to specify common behavior of objects.
+
+How do you decide whether to use an interface or a class? In general, a strong is-a relationship that clearly describes a parent-child relationship should be modeled using classes.
+
+A weak is-a relationship, also known as an is-kind-of relationship, indicates that an object possesses a certain property. A weak is-a relationship can be modeled using interfaces.
+
+In general, interfaces are preferred over abstract classes because an interface can define a common supertype for unrelated classes.
+
+Interfaces give you more flexibility than classes, because you don’t have to make everything fit into one type of class.
+
+------------------------------------------------------------------------------
+10. Class Design Guidelines
+
+Class design guidelines are helpful for designing sound classes.
+
+10.1. Cohesion
+
+A class should describe a single entity, and all the class operations should logically fit together to support a coherent purpose.
+
+You can use a class for students, for example, but you should not combine students and staff in the same class, because students and staff are different entities.
+
+A single entity with many responsibilities can be broken into several classes to separate the responsibilities.
+
+10.2. Consistency
+
+Follow standard Java programming style and naming conventions. Choose informative names for classes, data fields, and methods. A popular style is to place the data declaration before the constructor and place constructors before methods.
+
+In general, you should consistently provide a public no-arg constructor for constructing a default instance. If a class does not support a no-arg constructor, document the reason.
+
+10.3. Encapsulation
+
+A class should use the private modifier to hide its data from direct access by clients. This makes the class easy to maintain.
+
+Provide a getter method only if you want the data field to be readable, and provide a setter method only if you want the data field to be updateable.
+
+10.4. Clarity
+
+Users can incorporate classes in many different combinations, orders, and environments. Therefore, you should design a class that imposes no restrictions on how or when the user can use it, design the properties in a way that lets the user set them in any order and with any combination of values, and design methods that function independently of their order of occurrence.
+
+10.5. Completeness
+
+Classes are designed for use by many different customers. In order to be useful in a wide range of applications, a class should provide a variety of ways for customization through properties and methods.
+
+10.6. Instance vs Static
+
+A variable or method that is dependent on a specific instance of the class must be an instance variable or method.
+
+A variable that is shared by all the instances of a class should be declared
+static.
+
+A method that is not dependent on a specific instance should be defined as a static method.
+
+Always reference static variables and methods from a class name (rather than a reference variable) to improve readability and avoid errors.
+
+Do not pass a parameter from a constructor to initialize a static data field. It is better to use a setter method to change the static data field.
+
+Instance and static are integral parts of object-oriented programming. A data field or method is either instance or static. Do not mistakenly overlook static data fields or methods. It is a common design error to define an instance method that should have been static.
+
+A constructor is always instance, because it is used to create a specific instance. A static variable or method can be invoked from an instance method, but an instance variable or method cannot be invoked from a static method.
+
+10.7. Inheritance vs Aggregation
+
+The difference between inheritance and aggregation is the difference between an is-a and a has-a relationship.
+
+For example, an apple is a fruit; thus, you would use inheritance to model the relationship between the classes Apple and Fruit . A person has a name; thus, you would use aggregation to model the relationship between the classes Person and Name .
+
+10.8. Interfaces vs Absract Classes
+
+Both interfaces and abstract classes can be used to specify common behavior for objects.
+
+How do you decide whether to use an interface or a class? In general, a strong is-a relationship that clearly describes a parent–child relationship should be modeled using classes.
+
+For example, since an orange is a fruit, their relationship should be modeled using class inheritance.
+
+A weak is-a relationship, also known as an is-kind-of relationship, indicates that an object possesses a certain property. A weak is-a relationship can be modeled using interfaces.
+
+Interfaces are more flexible than abstract classes, because a subclass can extend only one superclass but can implement any number of interfaces. However, interfaces cannot contain concrete methods. The virtues of interfaces and abstract classes can be combined by creating an interface with an abstract class that implements it.
+
+---------------------------------------------------------------------------
+Summary
+
+Abstract classes are like regular classes with data and methods, but you cannot create instances of abstract classes using the new operator.
+
+An abstract method cannot be contained in a nonabstract class. If a subclass of an abstract superclass does not implement all the inherited abstract methods of the superclass, the subclass must be defined as abstract.
+
+A class that contains abstract methods must be abstract. However, it is possible to define an abstract class that doesn’t contain any abstract methods.
+
+A subclass can be abstract even if its superclass is concrete.
+
+An interface is a class-like construct that contains only constants and abstract methods. In many ways, an interface is similar to an abstract class, but an abstract class can contain constants and abstract methods as well as variables and concrete methods.
+
+A class can extend only one superclass but can implement one or more interfaces.
+
+An interface can extend one or more interfaces.

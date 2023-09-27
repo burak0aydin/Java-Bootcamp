@@ -1,0 +1,200 @@
+Objectives:
+    * To describe objects and classes, and use classes to model objects
+    * To create objects using constructors
+    * To access objects via object reference variables
+    * To define data fields of reference types and assign default values for an object’s data fields
+    * To distinguish between instance and static variables and methods
+    * To define private data fields with appropriate getter and setter methods
+    * To encapsulate data fields to make classes easy to maintain
+    * To develop methods with object arguments and differentiate between primitive-type arguments and object-type arguments
+    * To store and process objects in arrays
+    * To create immutable objects from immutable classes to protect the contents of objects
+    * To use the keyword this to refer to the calling object itself
+
+----------------------------------------------------------------
+1. Introduction
+
+Object-oriented programming enables you to develop large-scale software and GUIs effectively.
+
+----------------------------------------------------------------
+2. Definig Classes for Objects
+
+A class defines the properties and behaviors for objects.
+
+An object represents an entity in the real world that can be distinctly identified.
+
+An object has a unique identity, state, and behavior.
+
+The state of an object (also known as its properties or attributes) is represented by data fields with their current values.
+
+The behavior of an object (also known as its actions) is defined by methods. To
+invoke a method on an object is to ask the object to perform an action.
+
+A class is a template, blueprint, or contract that defines what an object’s data fields and methods will be. An object is an instance of a class. You can create many instances of a class. Creating an instance is referred to as instantiation.
+
+A Java class uses variables to define data fields and methods to define actions. Additionally, a class provides methods of a special type, known as constructors, which are invoked to create a new object. A constructor can perform any action, but constructors are designed to perform initializing actions, such as initializing the data fields of objects.
+
+----------------------------------------------------------------
+3. Example: Defninig a Simple Class
+
+You can put the two classes into one file, but only one class in the file can be a public class. Furthermore, the public class must have the same name as the file name.
+
+Each class in the source code is compiled into a .class file.
+
+----------------------------------------------------------------
+4. Constructing Objects Using Constructors
+
+A constructor is invoked to create an object using the new operator.
+
+Constructors are a special kind of method:
+    * A constructor must have the same name as the class itself.
+    * Constructors do not have a return type—not even void.
+    * Constructors are invoked using the new operator when an object is created. Constructors play the role of initializing objects.
+
+Like regular methods, constructors can be overloaded (i.e., multiple constructors can have the same name but different signatures), making it easy to construct objects with different initial data values.
+
+default constructor, is provided automatically only if no constructors are explicitly defined in the class.
+
+----------------------------------------------------------------
+5. Accessing Objects via Reference Variables
+
+An object’s data and methods can be accessed through the dot ( . ) operator via the object’s reference variable.
+
+Objects are accessed via the object’s reference variables, which contain references to the objects.
+
+A class is essentially a programmer-defined type. A class is a reference type.
+
+An object reference variable that appears to hold an object actually contains a reference to that object. Strictly speaking, an object reference variable and an object are different, but most of the time the distinction can be ignored.
+
+In OOP terminology, an object’s member refers to its data fields and methods.
+
+    Recall that you use Math.methodName(arguments) (e.g., Math.pow(3, 2.5) ) to invoke a method in the Math class. Can you invoke getArea() using Circle.getArea() ? The answer is no. All the methods in the Math class are static methods, which are defined using the static keyword. However, getArea() is an instance method, and thus nonstatic. It must be invoked from an object using objectRefVar.methodName(arguments)
+
+Occasionally an object does not need to be referenced later.
+
+The data fields can be of reference types.
+
+If a data field of a reference type does not reference any object, the data field holds a special Java value, null. Java assigns no default value to
+a local variable inside a method.
+
+----------------------------------------------------------------
+6. Using Classes from the Java Library
+
+The Java API contains a rich set of classes for developing Java programs.
+
+    java.util.Date date = new java.util.Date();
+        date.getTime() // elapsed time since January 1, 1970
+        date.toString() // return the date and time as a string.
+
+The no-arg constructor creates a Random object using the current elapsed time as its seed. If two Random objects have the same seed, they will generate identical sequences of numbers.
+
+    Random random1 = new Random(3); //seed 3
+    random1.nextInt(1000)
+
+Java API has a convenient Point2D class in the javafx.geometry package for representing a point in a two-dimensional plane.
+
+    Point2D p1 = new Point2D(x1, y1)
+
+---------------------------------------------------------------
+7. Static Variables, Constants, and Methods
+
+A static variable is shared by all objects of the class. A static method cannot access instance members of the class.
+
+If you want all the instances of a class to share data, use static variables, also known as class variables.
+
+Static methods can be called without creating an instance of the class.
+
+Instance variables belong to the instances and have memory storage independent of one another. Static variables are shared by all the instances of the same class.
+
+constants should be declared as final static .
+
+----------------------------------------------------------------
+8. Visibility Modifiers
+
+Visibility modifiers can be used to specify the visibility of a class and its members.
+
+You can use the public visibility modifier for classes, methods, and data fields to denote that they can be accessed from any other classes. If no visibility modifier is used, then by default the classes, methods, and data fields are accessible by any class in the same package.
+
+The private modifier makes methods and data fields accessible only from within its own class.
+
+A visibility modifier specifies how data fields and methods in a class can be accessed from outside the class.
+
+In most cases, the constructor should be public. However, if you want to prohibit the user from creating an instance of a class, use a private constructor. For example, there is no reason to create an instance from the Math class, because all of its data fields and methods are static.
+
+-----------------------------------------------------------------------
+9. Data Field Encapsulation
+
+Making data fields private protects data and makes the class easy to maintain.
+
+    First, data may be tampered with.
+    Second, the class becomes difficult to maintain and vulnerable to bugs.
+
+To prevent direct modifications of data fields, you should declare the data fields private, using the private modifier. This is known as data field encapsulation.
+
+A private data field cannot be accessed by an object from outside the class that defines the private field. However, a client often needs to retrieve and modify a data field. To make a private data field accessible, provide a getter method to return its value. To enable a private data field to be updated, provide a setter method to set a new value.
+
+---------------------------------------------------------------------------
+10. Passing Objects to Methods
+
+Passing an object to a method is to pass the reference of the object.
+
+primitive data types are stored in stack, so they prevent from changing in other methods
+
+reference types such as objects are stored in Heap in memory, so the changes will apply to them.
+
+When passing an argument of a primitive data type, the value of the argument is passed. In this case, the value of n ( 5 ) is passed to times . Inside the printAreas method, the content of times is changed; this does not affect the content of n .
+
+When passing an argument of a reference type, the reference of the object is passed. In this case, c contains a reference for the object that is also referenced via myCircle . Therefore, changing the properties of the object through c inside the printAreas method has the same effect as doing so outside the method through the variable myCircle .
+
+--------------------------------------------------------------------
+11. Array of Objects
+
+An array can hold objects as well as primitive type values.
+
+--------------------------------------------------------------------
+12. Immutable Objects and Classes
+
+You can define immutable classes to create immutable objects. The contents of
+immutable objects cannot be changed.
+
+If a class is immutable, then all its data fields must be private and it cannot contain public setter methods for any data fields.
+
+A class with all private data fields and no mutators is not necessarily immutable. For example, the following Student class has all private data fields and no setter methods, but it is not an immutable class.
+
+For a class to be immutable, it must meet the following requirements:
+    All data fields must be private
+    There can’t be any mutator methods for data fields.
+    No accessor methods can return a reference to a data field that is mutable.
+
+----------------------------------------------------------------
+13. Scope of Variables
+
+The scope of instance and static variables is the entire class, regardless of where the variables are declared.
+
+You can declare a class’s variable only once, but you can declare the same variable name in a method many times in different nonnesting blocks.
+
+If a local variable has the same name as a class’s variable, the local variable takes precedence and the class’s variable with the same name is hidden.
+
+------------------------------------------------------------------------
+14. The this Reference
+
+The keyword this refers to the object itself. It can also be used inside a constructor to invoke another constructor of the same class.
+
+The this keyword can be used to reference a class’s hidden data fields.
+
+A hidden static variable can be accessed simply by using the ClassName.staticVariable reference. A hidden instance variable can be accessed by using the keyword this.
+
+The this keyword can be used to invoke another constructor of the same class.
+
+----------------------------------------------------------------
+Summary
+
+A class is a template for objects. It defines the properties of objects and provides constructors for creating objects and methods for manipulating them.
+
+An instance variable or method belongs to an instance of a class. Its use is associated with individual instances. A static variable is a variable shared by all instances of the same class. A static method is a method that can be invoked without using instances.
+
+Visibility modifiers specify how the class, method, and data are accessed.
+
+You can provide a getter (accessor) method or a setter (mutator) method to enable clients to see or modify the data.
+
+Once it is created, an immutable object cannot be modified. To prevent users from modifying an object, you can define immutable classes.

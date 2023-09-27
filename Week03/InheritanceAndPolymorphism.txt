@@ -1,0 +1,225 @@
+I write these notes using VSCode. If you are using VSCode, you can open this txt file in VSCode and then if you press Alt+z it will automatically fit the text to screen. Otherwise, you will see the text in one line and it could be hard to read. Please don't just rely on these notes that i am sharing and read the corresponding chapters from the text book.
+
+Objectives:
+    * To define a subclass from a superclass through inheritance (§11.2).
+    * To invoke the superclass’s constructors and methods using the super keyword (§11.3).
+    * To override instance methods in the subclass (§11.4).
+    * To distinguish differences between overriding and overloading (§11.5).
+    * To discover polymorphism and dynamic binding (§§11.7–11.8).
+    * To describe casting and explain why explicit downcasting is necessary (§11.9).
+    * To store, retrieve, and manipulate objects in an ArrayList (§11.11).
+    * To enable data and methods in a superclass accessible from subclasses using the protected visibility modifier (§11.14).
+    * To prevent class extending and method overriding using the final modifier (§11.15).
+
+--------------------------------------------------------------------------------
+1. Introduction
+
+Object-oriented programming allows you to define new classes from existing classes. This is called inheritance.
+
+Inheritance is an important and powerful feature for reusing software.
+
+--------------------------------------------------------------------------------
+2. Superclasses and Subclasses
+
+Inheritance enables you to define a general class (i.e., a superclass) and later extend it to more specialized classes (i.e., subclasses).
+
+You use a class to model objects of the same type. Different classes may have some common properties and behaviors, which can be generalized in a class that can be shared by other classes. You can define a specialized class that extends the generalized class. The specialized classes inherit the properties and methods from the general class.
+
+A subclass inherits accessible data fields and methods from its superclass and may also add new data fields and methods.
+
+A subclass usually contains more information and methods than its superclass.
+
+Private data fields in a superclass are not accessible outside the class. Therefore, they cannot be used directly in a subclass.
+
+Inheritance is used to model the is-a relationship. Do not blindly extend a class just for the sake of reusing methods. A subclass and its superclass must have the is-a relationship.
+
+--------------------------------------------------------------------------------
+3. Using the super keyword
+
+The keyword super refers to the superclass and can be used to invoke the super-
+class’s methods and constructors.
+
+The statement super() invokes the no-arg constructor of its superclass, and the statement super(arguments) invokes the superclass constructor that matches the arguments.
+
+The statement super() or super(arguments) must be the first statement of the subclass’s constructor;
+
+A constructor may invoke an overloaded constructor or its superclass constructor.
+
+constructing an instance of a class invokes the constructors of all the superclasses along the inheritance chain. This is called constructor chaining.
+
+The keyword super can also be used to reference a method other than the constructor in the superclass.
+
+How does a subclass invoke its superclass’s constructor?
+
+--------------------------------------------------------------------------------
+4. Overriding Methods
+
+To override a method, the method must be defined in the subclass using the same signature and the same return type as in its superclass.
+
+If a method defined in a subclass is private in its superclass, the two methods are completely unrelated.
+
+How do you invoke an overridden superclass method from a subclass?
+
+--------------------------------------------------------------------------------
+5. Overriding vs. overloading
+
+Overloading means to define multiple methods with the same name but different signatures. Overriding means to provide a new implementation for a method in the subclass.
+
+Overridden methods are in different classes related by inheritance; overloaded methods can be either in the same class or different classes related by inheritance.
+
+Overridden methods have the same signature and return type; overloaded methods
+have the same name but a different parameter list.
+
+If a method in a subclass has the same signature as a method in its superclass with the same return type, is the method overridden or overloaded?
+
+--------------------------------------------------------------------------------
+6. The Object Class and Its toString() Method
+
+Every class in Java is descended from the java.lang.Object class.
+
+If no inheritance is specified when a class is defined, the superclass of the class is Object by default.
+
+--------------------------------------------------------------------------------
+7. Polymorphism
+
+Polymorphism means that a variable of a supertype can refer to a subtype object.
+
+The inheritance relationship enables a subclass to inherit features from its superclass with additional new features. A subclass is a specialization of its superclass; every instance of a subclass is also an instance of its superclass, but not vice versa.
+
+An object of a subclass can be used wherever its superclass object is used. This is commonly known as polymorphism
+
+--------------------------------------------------------------------------------
+8. Dynamic Binding
+
+A method can be implemented in several classes along the inheritance chain. The JVM decides which method is invoked at runtime.
+
+The type that declares a variable is called the variable’s declared type. 
+
+A variable of a reference type can hold a null value or a reference to an instance of the declared type.
+
+The instance may be created using the constructor of the declared type or its subtype. The actual type of the variable is the actual class for the object referenced by the variable.
+
+Methods invoked by instances are determined by instance's actual type. This is known as dynamic binding.
+
+--------------------------------------------------------------------------------
+9. Casting Objects and the instanceof Operator
+
+One object reference can be typecast into another object reference. This is called casting object.
+
+The statement Object o = new Student(), known as implicit casting, is legal because an
+instance of Student is an instance of Object.
+
+However Student b = o doesn’t work. The reason is that a Student object is always an
+instance of Object, but an Object is not necessarily an instance of Student.
+
+To tell the compiler that o is a Student object, use explicit casting.
+    Student b = (Student)o;
+
+It is always possible to cast an instance of a subclass to a variable of a superclass (known as
+upcasting), because an instance of a subclass is always an instance of its superclass.
+
+When casting an instance of a superclass to a variable of its subclass (known as downcasting), explicit casting must be used to confirm your intention to the compiler with the (SubclassName)
+cast notation.
+
+we can ensure that the object is an instance of another object before attempting a casting by using the instance of operator.
+
+The declared type decides which method to match at compile time.
+
+------------------------------------------------------------------------------------------
+10. The Object's equals Method
+
+Like the toString() method, the equals(Object) method is another useful method defined in the Object class.
+
+This method tests whether two objects are equal.
+
+This implementation checks whether two reference variables point to the same object using
+the == operator.
+
+--------------------------------------------------------------------------------
+11. The ArrayList Class
+
+An ArrayList object can be used to store a list of objects.
+
+You can create an array to store objects. But, once the array is created, its size is fixed. Java provides the ArrayList class, which can be used to store an unlimited number of objects.
+
+ArrayList is known as a generic class with a generic type E. You can specify a concrete
+type to replace E when creating an ArrayList.
+
+Once an array is created, its size is fixed. You can access an array element using the
+square-bracket notation (e.g., a[index]). When an ArrayList is created, its size is 0.
+
+You cannot use the get(index) and set(index, element) methods if the element is not in the list. It is easy to add, insert, and remove elements in a list, but it is rather complex to add, insert, and remove elements in an array.
+
+Elements stored in an ArrayList must be of an object type. You cannot use a primitive data type such as int to replace a generic type. However, you can create an ArrayList for storing Integer objects
+
+------------------------------------------------------------------------------------------
+12. Useful Methods for Lists
+
+Java provides the methods for creating a list from an array, for sorting a list, and
+finding maximum and minimum element in a list, and for shuffling a list.
+
+The static method asList in the Arrays class returns a list that is passed to the ArrayList
+constructor for creating an ArrayList. toArray method creates an array of objects from an arraylist.
+
+You can use the static shuffle method in the java.util.Collections class to perform
+a random shuffle for the elements in a list.
+
+------------------------------------------------------------------------------------------
+14. The protected Data and Methods
+
+A protected member of a class can be accessed from a subclass.
+
+Often it is desirable to allow subclasses to access data fields or methods defined in the
+superclass, but not to allow nonsubclasses to access these data fields and methods. To accomplish this, you can use the protected keyword. This way you can access protected data
+fields or methods in a superclass from its subclasses.
+
+The modifiers private , protected , and public are known as visibility or accessibility
+modifiers because they specify how classes and class members are accessed.
+
+The visibility of these modifiers increases in this order:
+    private -> default(no modifier) -> protected -> public
+
+Use the private modifier to hide the members of the class completely so that they cannot
+be accessed directly from outside the class.
+
+Use no modifiers (the default) in order to allow the members of the class to be accessed directly from any class within the same package but not from other packages.
+
+Use the protected modifier to enable the members of the class to be accessed by the subclasses in any package or classes in the same package.
+
+Use the public modifier to enable the members of the class to be accessed by any class.
+
+--------------------------------------------------------------------------------------
+15. Preventing Extending and Overriding
+
+Neither a final class nor a final method can be extended. A final data field is a constant.
+
+You may occasionally want to prevent classes from being extended. In such cases, use the
+final modifier to indicate that a class is final and cannot be a parent class.
+
+You also can define a method to be final; a final method cannot be overridden by its
+subclasses.
+
+--------------------------------------------------------------------------------------
+Summary
+
+You can define a new class from an existing class. This is known as class inheritance. The new class is called a subclass, child class, or extended class. The existing class is called a superclass, parent class, or base class.
+
+A constructor is used to construct an instance of a class. Unlike properties and methods, the constructors of a superclass are not inherited in the subclass. They can be invoked only from the constructors of the subclasses, using the keyword super. The call must be the first statement in the constructor. If none of them is invoked explicitly, the compiler puts super() as the first statement in the constructor, which invokes the superclass’s no-arg constructor.
+
+To override a method, the method must be defined in the subclass using the same signature and the same return type as in its superclass.
+
+An instance method can be overridden only if it is accessible. Thus, a private method cannot be overridden because it is not accessible outside its own class.
+
+Like an instance method, a static method can be inherited. However, a static method cannot be overridden. If a static method defined in the superclass is redefined in a subclass, the method defined in the superclass is hidden.
+
+Every class in Java is descended from the java.lang.Object class.
+
+If a method’s parameter type is a superclass (e.g., Object ), you may pass an object to this method of any of the parameter’s subclasses (e.g., Circle or String ). This is known as polymorphism.
+
+It is always possible to cast an instance of a subclass to a variable of a superclass, because an instance of a subclass is always an instance of its superclass. When cast ing an instance of a superclass to a variable of its subclass, explicit casting must be used to confirm your intention to the compiler with the ( SubclassName ) cast notation.
+
+When invoking an instance method from a reference variable, the actual type of the variable decides which implementation of the method is used at runtime. This is known as dynamic binding.
+
+You can use the ArrayList class to create an object to store a list of objects.
+
+You can use the protected modifier to prevent the data and methods from being accessed by nonsubclasses from a different package.
